@@ -1,19 +1,20 @@
 # Xendit Coding Exercise
 
-The goal of these exercises are to assess your proficiency in software engineering that is related to the daily work that we do at Xendit. Please follow the instructions below to complete the assessment.
+The goal of these exercises are to show proficiency in software engineering that is related to the daily work at Xendit. All instructions and guidelines are listed below.
 
 ## Setup
 
-1. Create a new repository in your own github profile named `backend-coding-test` and commit the contents of this folder
+1. Clone this repository with `git clone https://github.com/amorkor/backend-coding-test.git`
 2. Ensure `node (>8.6 and <= 10)` and `npm` are installed
-3. Run `npm install`
-4. Run `npm test`
-5. Run `npm start`
-6. Hit the server to test health `curl localhost:8010/health` and expect a `200` response 
+3. While in project root, run `nvm use`
+4. Run `npm install`
+5. Run `npm test`
+6. Run `npm start`
+7. Hit the server to test health `curl localhost:8010/health` and expect a `200` response 
 
 ## Tasks
 
-Below will be your set of tasks to accomplish. Please work on each of these tasks in order. Success criteria will be defined clearly for each task
+Below will be the set of tasks to accomplish.
 
 1. [Documentation](#documentation)
 2. [Implement Tooling](#implement-tooling)
@@ -24,12 +25,10 @@ Below will be your set of tasks to accomplish. Please work on each of these task
 
 ### Documentation
 
-Please deliver documentation of the server that clearly explains the goals of this project and clarifies the API response that is expected.
+To view documentation of API just:
 
-#### Success Criteria
-
-1. A pull request against `master` of your fork with a clear description of the change and purpose and merge it
-3. **[BONUS]** Create an easy way to deploy and view the documentation in a web format and include instructions to do so
+1. Run server with `npm start`
+2. Go to (localhost:8010/docs)
 
 ### Implement Tooling
 
