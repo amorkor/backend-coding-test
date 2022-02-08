@@ -10,7 +10,7 @@ paths:
     get:
       tags:
         - Health
-      summary: Check if server is running.
+      summary: Check server
       description: Check if server is running.
       responses: 
         '200':
@@ -21,7 +21,7 @@ paths:
       tags:
         - Ride
       summary:
-        Saves and returns new drive.
+        Create new ride
       description:
         Saves new drive to the database.
         Returns either newly created ride or validation error.
@@ -44,7 +44,7 @@ paths:
       tags:
         - Ride
       summary:
-        Returns all rides 
+        Get all rides
       description:
         Returns all rides 
       responses:
@@ -62,7 +62,7 @@ paths:
       tags:
         - Ride
       summary:
-        Ride with requested id
+        Get ride with id
       description:
         Ride with requested id
       responses:
