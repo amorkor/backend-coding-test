@@ -40,6 +40,23 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/Ride' 
                   - $ref: '#/components/schemas/RideValidationError' 
+    get:
+      tags:
+        - Ride
+      summary:
+        Returns all rides 
+      description:
+        Returns all rides 
+      responses:
+        '200':
+          description:
+            Server recieved query
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Ride'
+                  - $ref: '#/components/schemas/RideServerError'
 
 components: 
   schemas:
@@ -95,6 +112,15 @@ components:
         message:
           type: string
           example: 'Rider name must be a non empty string'
+    RideServerError:
+      properties:
+        errorCode:
+          type: string
+          example: 'SERVER_ERROR'
+        message:
+          type: string
+          example: 'Unknown error'
+        
 
 x-tagGroups:
   - name: API
