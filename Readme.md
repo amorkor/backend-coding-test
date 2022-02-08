@@ -28,7 +28,7 @@ Below will be the set of tasks to accomplish.
 To view documentation of API just:
 
 1. Run server with `npm start`
-2. Go to (localhost:8010/docs)
+2. Go to [localhost:8010/docs](localhost:8010/docs)
 
 ### Implement Tooling
 
