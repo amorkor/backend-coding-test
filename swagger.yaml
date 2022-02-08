@@ -57,6 +57,26 @@ paths:
                 oneOf:
                   - $ref: '#/components/schemas/Ride'
                   - $ref: '#/components/schemas/RideServerError'
+  rides/{id}:
+    get:
+      tags:
+        - Ride
+      summary:
+        Ride with requested id
+      description:
+        Ride with requested id
+      responses:
+        '200':
+          description:
+            Server recieved query.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  # TODO: specify, that Ride object is returned inside array,
+                  # rather then as plain object
+                  - $ref: '#/components/schemas/Ride'
+                  - $ref: '#/components/schemas/RideServerError'
 
 components: 
   schemas:
