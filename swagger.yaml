@@ -15,8 +15,91 @@ paths:
       responses: 
         '200':
           description: Healthy
+  # Rides
+  /rides:
+    post:
+      tags:
+        - Ride
+      summary:
+        Saves and returns new drive.
+      description:
+        Saves new drive to the database.
+        Returns either newly created ride or validation error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ride'
+      responses: 
+        '200':
+          description:
+            Server recieved query
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/Ride' 
+                  - $ref: '#/components/schemas/RideValidationError' 
+
+components: 
+  schemas:
+    Ride:
+      properties:
+        rideID:
+          type: integer
+          readOnly: true
+          example: 1
+        startLatitude:
+          type: integer
+          example: 70
+          description: range from -90 to 90
+        startLongitude:
+          type: integer
+          example: 100
+          description: range from -180 to 180
+        endLatitude:
+          type: integer
+          example: -80
+          description: range from -90 to 90
+        endLongitude:
+          type: integer
+          example: -20
+          description: range from -180 to 180
+        riderName:
+          type: string
+          example: Neo
+        driverName:
+          type: string
+          example: Morpheus
+        driverVehicle:
+          type: string
+          example: Nebuchadnezzar
+        created:
+          readOnly: true
+          type: string
+          format: date
+          example: '2022-02-08 10:50:06'
+      required:
+        - riderName
+        - driverName
+        - driverVehicle
+        - endLongitude
+        - startLatitude
+        - startLongitude
+        - endLatitude
+    RideValidationError:
+      properties:
+        errorCode:
+          type: string
+          example: 'VALIDATION_ERROR'
+        message:
+          type: string
+          example: 'Rider name must be a non empty string'
 
 x-tagGroups:
-  - name: Utiliy
+  - name: API
+    tags:
+      - Ride
+  - name: Utils
     tags:
       - Health
