@@ -1,0 +1,22 @@
+openapi: 3.0.0
+info:
+  title: Backend coding test
+  description: Riding app documentation.
+  version: 1.0.0
+
+paths: 
+  # Utils
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Check if server is running.
+      description: Check if server is running.
+      responses: 
+        '200':
+          description: Healthy
+
+x-tagGroups:
+  - name: Utiliy
+    tags:
+      - Health
