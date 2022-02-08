@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express();
+const redoc = require('redoc-express');
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -116,5 +117,17 @@ module.exports = (db) => {
         });
     });
 
-    return app;
+	app.get(
+		'/docs',
+		redoc({
+			title: 'API Docs',
+			specUrl: '/docs/swagger.yaml'
+		})
+	);
+    
+	app.get('/docs/swagger.yaml', (req, res) => {
+		res.sendFile('swagger.yaml', { root: '.' });
+	});
+		 
+	return app;
 };
