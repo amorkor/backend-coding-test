@@ -11,6 +11,9 @@
     "start": "node index.js",
     "dev": "npx nodemon index.js"
   },
+  "pre-push": [
+	"test"
+  ],
   "keywords": [
     "Xendit"
   ],
@@ -27,6 +30,7 @@
     "mocha": "^6.1.4",
     "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
+    "pre-push": "^0.1.1",
     "supertest": "^4.0.2"
   }
 }
