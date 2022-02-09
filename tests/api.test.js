@@ -50,4 +50,24 @@ describe('API tests', () => {
                 .expect(200, done);
         });
     });
+
+    describe('GET /rides', () => {
+        it('should return JSON object', (done) => {
+            request(app)
+                .get('/rides')
+                .expect('Content-Type', /json/)
+                .expect(200, done);
+        });
+    });
+
+    describe('GET /rides/{id}', () => {
+        const rideId = 1;
+
+        it('should return JSON object', (done) => {
+            request(app)
+                .get(`/rides/${rideId}`)
+                .expect('Content-Type', /json/)
+                .expect(200, done);
+        });
+    });
 });
