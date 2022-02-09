@@ -1,11 +1,11 @@
 'use strict';
 
 const express = require('express');
-const app = express();
+const app = express(); // eslint-disable-line no-unused-vars
 const port = 8010;
 
 const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
+const jsonParser = bodyParser.json(); // eslint-disable-line no-unused-vars
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
