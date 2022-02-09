@@ -1,12 +1,13 @@
 {
   "env": {
-    "commonjs": true
+    "commonjs": true,
+    "mocha": true
   },
   "extends": [
     "eslint:recommended"
   ],
   "parserOptions": {
-    "ecmaVersion": 12
+    "ecmaVersion": 2019
   },
   "rules": {
     "arrow-parens": 2,

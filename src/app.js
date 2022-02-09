@@ -38,7 +38,7 @@ module.exports = (db) => {
 
             return res.send({
                 error_code: 'VALIDATION_ERROR',
-                message: 'Start latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively'
+                message: 'Start latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively',
             });
         }
 
@@ -60,7 +60,7 @@ module.exports = (db) => {
 
             return res.send({
                 error_code: 'VALIDATION_ERROR',
-                message: 'End latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively'
+                message: 'End latitude and longitude must be between -90 - 90 and -180 to 180 degrees respectively',
             });
         }
 
@@ -80,7 +80,7 @@ module.exports = (db) => {
 
             return res.send({
                 error_code: 'VALIDATION_ERROR',
-                message: 'Rider name must be a non empty string'
+                message: 'Rider name must be a non empty string',
             });
         }
 
@@ -100,7 +100,7 @@ module.exports = (db) => {
 
             return res.send({
                 error_code: 'VALIDATION_ERROR',
-                message: 'Rider name must be a non empty string'
+                message: 'Rider name must be a non empty string',
             });
         }
 
@@ -117,25 +117,25 @@ module.exports = (db) => {
                     driverVehicle,
                 },
             });
-            
+
             return res.send({
                 error_code: 'VALIDATION_ERROR',
-                message: 'Rider name must be a non empty string'
+                message: 'Rider name must be a non empty string',
             });
         }
 
         var values = [req.body.start_lat, req.body.start_long, req.body.end_lat, req.body.end_long, req.body.rider_name, req.body.driver_name, req.body.driver_vehicle];
-        
-        const result = db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
+
+        db.run('INSERT INTO Rides(startLat, startLong, endLat, endLong, riderName, driverName, driverVehicle) VALUES (?, ?, ?, ?, ?, ?, ?)', values, function (err) {
             if (err) {
                 logger.error({
                     message: err.message,
-                    code: err.code
+                    code: err.code,
                 });
-                
+
                 return res.send({
                     error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
+                    message: 'Unknown error',
                 });
             }
 
@@ -143,12 +143,12 @@ module.exports = (db) => {
                 if (err) {
                     logger.error({
                         message: err.message,
-                        code: err.code
+                        code: err.code,
                     });
 
                     return res.send({
                         error_code: 'SERVER_ERROR',
-                        message: 'Unknown error'
+                        message: 'Unknown error',
                     });
                 }
 
@@ -156,18 +156,18 @@ module.exports = (db) => {
             });
         });
     });
- 
+
     app.get('/rides', (req, res) => {
         db.all('SELECT * FROM Rides', function (err, rows) {
             if (err) {
                 logger.error({
                     message: err.message,
-                    code: err.code
+                    code: err.code,
                 });
 
                 return res.send({
                     error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
+                    message: 'Unknown error',
                 });
             }
 
@@ -178,7 +178,7 @@ module.exports = (db) => {
 
                 return res.send({
                     error_code: 'RIDES_NOT_FOUND_ERROR',
-                    message: 'Could not find any rides'
+                    message: 'Could not find any rides',
                 });
             }
 
@@ -191,12 +191,12 @@ module.exports = (db) => {
             if (err) {
                 logger.error({
                     message: err.message,
-                    code: err.code
+                    code: err.code,
                 });
 
                 return res.send({
                     error_code: 'SERVER_ERROR',
-                    message: 'Unknown error'
+                    message: 'Unknown error',
                 });
             }
 
@@ -207,7 +207,7 @@ module.exports = (db) => {
 
                 return res.send({
                     error_code: 'RIDES_NOT_FOUND_ERROR',
-                    message: 'Could not find any rides'
+                    message: 'Could not find any rides',
                 });
             }
 
@@ -215,17 +215,17 @@ module.exports = (db) => {
         });
     });
 
-	app.get(
-		'/docs',
-		redoc({
-			title: 'API Docs',
-			specUrl: '/docs/swagger.yaml'
-		})
-	);
-    
-	app.get('/docs/swagger.yaml', (req, res) => {
-		res.sendFile('swagger.yaml', { root: '.' });
-	});
-		 
-	return app;
+    app.get(
+        '/docs',
+        redoc({
+            title: 'API Docs',
+            specUrl: '/docs/swagger.yaml',
+        })
+    );
+
+    app.get('/docs/swagger.yaml', (req, res) => {
+        res.sendFile('swagger.yaml', { root: '.' });
+    });
+
+    return app;
 };
