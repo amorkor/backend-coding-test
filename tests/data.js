@@ -19,6 +19,11 @@ const testData = {
         driver_name: 'Morpheus',
         driver_vehicle: 'Nebuchadnezzar',
     },
+
+    validationError: {
+        error_code: 'VALIDATION_ERROR',
+        message: 'Rider name must be a non empty string',
+    },
 };
 
 module.exports = testData;
