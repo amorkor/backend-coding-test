@@ -29,4 +29,25 @@ describe('API tests', () => {
                 .expect(200, done);
         });
     });
+
+    describe('POST /rides', () => {
+        it('should return JSON object', (done) => {
+            const ride = {
+                startLatitude: 70,
+                startLongitude: 100,
+                endLatitude: -80,
+                endLongitude: -20,
+                riderName: 'Neo',
+                driverName: 'Morpheus',
+                driverVehicle: 'Nebuchadnezzar',
+            };
+
+            request(app)
+                .post('/rides')
+                .set('Content-Type', 'application/json')
+                .send(ride)
+                .expect('Content-Type', /json/)
+                .expect(200, done);
+        });
+    });
 });
