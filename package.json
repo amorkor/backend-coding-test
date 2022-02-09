@@ -9,10 +9,14 @@
   "scripts": {
     "test": "mocha tests",
     "start": "node index.js",
-    "dev": "npx nodemon index.js"
+    "dev": "npx nodemon index.js",
+    "coverage": "npx nyc npm run test",
+    "lint": "npx eslint . --ext js"
   },
   "pre-push": [
-    "test"
+    "test",
+    "lint",
+    "coverage"
   ],
   "keywords": [
     "Xendit"
