@@ -9,6 +9,7 @@ const jsonParser = bodyParser.json();
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
+const logger = require('./src/util/logger');
 
 const buildSchemas = require('./src/schemas');
 
@@ -17,5 +18,14 @@ db.serialize(() => {
 
     const app = require('./src/app')(db);
 
-    app.listen(port, () => console.log(`App started and listening on port ${port}`));
+    app.listen(port, (err) => {
+        if (err) {
+            logger.error({
+                message: err.message,
+                code: err.code,
+            });
+        }
+
+        logger.info(`App started and listening on port ${port}`);
+    });
 });
