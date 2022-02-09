@@ -1,12 +1,14 @@
 'use strict';
 
 const request = require('supertest');
+const { assert } = require('chai');
 
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database(':memory:');
 
 const app = require('../src/app')(db);
 const buildSchemas = require('../src/schemas');
+const testData = require('./data');
 
 describe('API tests', () => {
     before((done) => {
@@ -30,44 +32,55 @@ describe('API tests', () => {
         });
     });
 
-    describe('POST /rides', () => {
-        it('should return JSON object', (done) => {
-            const ride = {
-                startLatitude: 70,
-                startLongitude: 100,
-                endLatitude: -80,
-                endLongitude: -20,
-                riderName: 'Neo',
-                driverName: 'Morpheus',
-                driverVehicle: 'Nebuchadnezzar',
-            };
+    describe('Testing /ride endpoint', () => {
+        describe('Creating ride', () => {
+            const { ride } = testData;
 
-            request(app)
-                .post('/rides')
-                .set('Content-Type', 'application/json')
-                .send(ride)
-                .expect('Content-Type', /json/)
-                .expect(200, done);
+            it('should create new ride', (done) => {
+                request(app)
+                    .post('/rides')
+                    .set('Content-Type', 'application/json')
+                    .send(ride)
+                    .expect('Content-Type', /json/)
+                    .expect(200, done);
+            });
         });
-    });
 
-    describe('GET /rides', () => {
-        it('should return JSON object', (done) => {
-            request(app)
-                .get('/rides')
-                .expect('Content-Type', /json/)
-                .expect(200, done);
+        describe('Fetching rides', () => {
+            const { rideResponse } = testData;
+
+            it('should return the same created ride', (done) => {
+                request(app)
+                    .get(`/rides/${rideResponse.rideID}`)
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        assert.equal(
+                            res.body[0].rideID,
+                            rideResponse.rideID,
+                            'recieved correct ride',
+                        );
+
+                        done();
+                    });
+            });
+
+            it('should return array of all rides', (done) => {
+                request(app)
+                    .get('/rides')
+                    .expect('Content-Type', /json/)
+                    .expect(200)
+                    .end((err, res) => {
+                        assert.typeOf(
+                            res.body,
+                            'array',
+                            'recieved array of rides',
+                        );
+
+                        done();
+                    });
+            });
         });
-    });
 
-    describe('GET /rides/{id}', () => {
-        const rideId = 1;
-
-        it('should return JSON object', (done) => {
-            request(app)
-                .get(`/rides/${rideId}`)
-                .expect('Content-Type', /json/)
-                .expect(200, done);
-        });
     });
 });
