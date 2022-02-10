@@ -30,27 +30,15 @@ To view documentation of API just:
 1. Run server with `npm start`
 2. Go to [localhost:8010/docs](localhost:8010/docs)
 
-### Implement Tooling
+### Tooling
 
-Please implement the following tooling:
+Project has following additional tooling:
 
 1. `eslint` - for linting
 2. `nyc` - for code coverage
 3. `pre-push` - for git pre push hook running tests
 4. `winston` - for logging
-
-#### Success Criteria
-
-1. Create a pull request against `master` of your fork with the new tooling and merge it
-    1. `eslint` should have an opinionated format
-    2. `nyc` should aim for test coverage of `80%` across lines, statements, and branches
-    3. `pre-push` should run the tests before allowing pushing using `git`
-    4. `winston` should be used to replace console logs and all errors should be logged as well. Logs should go to disk.
-2. Ensure that tooling is connected to `npm test`
-3. Create a separate pull request against `master` of your fork with the linter fixes and merge it
-4. Create a separate pull request against `master` of your fork to increase code coverage to acceptable thresholds and merge it
-5. **[BONUS]** Add integration to CI such as Travis or Circle
-6. **[BONUS]** Add Typescript support
+5. `typescript` - for type checking
 
 ### Implement Pagination
 
