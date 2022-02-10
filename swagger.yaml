@@ -46,7 +46,21 @@ paths:
       summary:
         Get all rides
       description:
-        Returns all rides 
+        Returns requested page given the limit.
+        In case of invalid limit returns page with all rides.
+        In case of page parameter being less than 1 returns first page.
+        If page parameter exceeds total amount of pages, returns last page.
+      parameters:
+        - in: path
+          name: limit
+          schema:
+            type: integer
+          description: amount of rides per page
+        - in: path
+          name: page
+          schema:
+            type: integer
+          description: number of page to query
       responses:
         '200':
           description:
@@ -54,9 +68,25 @@ paths:
           content:
             application/json:
               schema:
-                oneOf:
-                  - $ref: '#/components/schemas/RideResponse'
-                  - $ref: '#/components/schemas/RideServerError'
+                properties:
+                  pagesTotal:
+                    type: integer
+                    example: 2
+                    description:
+                      amount of all pages resulted from given limit
+                  currentPage:
+                    type: integer
+                    example: 1
+                    description:
+                      current page
+                  pagedRows:
+                    type: array
+                    items:
+                      - allOf:
+                        - $ref: '#/components/schemas/RideResponse'
+                    description:
+                      rides listed on page
+
   rides/{id}:
     get:
       tags:
