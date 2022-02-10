@@ -40,15 +40,9 @@ Project has following additional tooling:
 4. `winston` - for logging
 5. `typescript` - for type checking
 
-### Implement Pagination
+### Pagination
 
-Please implement pagination to retrieve pages of the resource `rides`.
-
-1. Create a pull request against `master` with your changes to the `GET /rides` endpoint to support pagination including:
-    1. Code changes
-    2. Tests
-    3. Documentation
-2. Merge the pull request
+GET /rides endpoint support error-resilient pagination.
 
 ### Refactoring
 
