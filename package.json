@@ -15,7 +15,6 @@
     "start:ts": "tsc && node dist/index.js"
   },
   "pre-push": [
-    "test",
     "lint",
     "coverage"
   ],
