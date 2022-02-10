@@ -29,7 +29,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Ride'
+              $ref: '#/components/schemas/RideRequest'
       responses: 
         '200':
           description:
@@ -38,7 +38,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/Ride' 
+                  - $ref: '#/components/schemas/RideResponse' 
                   - $ref: '#/components/schemas/RideValidationError' 
     get:
       tags:
@@ -55,7 +55,7 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/Ride'
+                  - $ref: '#/components/schemas/RideResponse'
                   - $ref: '#/components/schemas/RideServerError'
   rides/{id}:
     get:
@@ -75,12 +75,47 @@ paths:
                 oneOf:
                   # TODO: specify, that Ride object is returned inside array,
                   # rather then as plain object
-                  - $ref: '#/components/schemas/Ride'
+                  - $ref: '#/components/schemas/RideResponse'
                   - $ref: '#/components/schemas/RideServerError'
 
 components: 
   schemas:
-    Ride:
+    RideRequest:
+      properties:
+        start_latitude:
+          type: integer
+          example: 70
+          description: range from -90 to 90
+        start_longitude:
+          type: integer
+          example: 100
+          description: range from -180 to 180
+        end_latitude:
+          type: integer
+          example: -80
+          description: range from -90 to 90
+        end_longitude:
+          type: integer
+          example: -20
+          description: range from -180 to 180
+        rider_name:
+          type: string
+          example: Neo
+        driver_name:
+          type: string
+          example: Morpheus
+        driver_vehicle:
+          type: string
+          example: Nebuchadnezzar
+      required:
+        - rider_name
+        - driver_name
+        - driver_vehicle
+        - end_longitude
+        - start_latitude
+        - start_longitude
+        - end_latitude
+    RideResponse:
       properties:
         rideID:
           type: integer
@@ -116,14 +151,6 @@ components:
           type: string
           format: date
           example: '2022-02-08 10:50:06'
-      required:
-        - riderName
-        - driverName
-        - driverVehicle
-        - endLongitude
-        - startLatitude
-        - startLongitude
-        - endLatitude
     RideValidationError:
       properties:
         errorCode:
