@@ -77,6 +77,44 @@ const RideRouter = (database) => {
         }
     });
 
+    router.get('/:id', async (req, res) => {
+        const rideId = Number(req.params.id);
+
+        try {
+            const ride = await rideService.get(rideId);
+
+            if (!ride) {
+                throw {
+                    code: 'RIDES_NOT_FOUND_ERROR',
+                    message: 'Could not find any rides',
+                };
+            }
+
+            res.status(200).send(ride);
+        } catch (err) {
+            logger.error({
+                message: err.message,
+                code: err.code,
+            });
+
+            if (err.code === 'RIDES_NOT_FOUND_ERROR') {
+                return res
+                    .status(404)
+                    .json({
+                        statusCode: err.code,
+                        message: 'Could not find any rides',
+                    });
+            }
+
+            return res
+                .status(500)
+                .json({
+                    statusCode: 'SERVER_ERROR',
+                    message: 'Unknown error',
+                });
+        }
+    });
+
     return router;
 };
 
