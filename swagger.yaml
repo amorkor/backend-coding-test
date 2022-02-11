@@ -7,24 +7,31 @@ info:
 paths: 
   # Utils
   /health:
-    get:
-      tags:
-        - Health
-      summary: Check server
-      description: Check if server is running.
-      responses: 
-        '200':
-          description: Healthy
+    $ref: './utils.yaml#/paths/~1health'
   # Rides
   /rides:
     $ref: './rides.yaml#/paths/~1rides'
   /rides/{id}:
     $ref: './rides.yaml#/paths/~1rides~1{id}'
 
+tags:
+- name: RideModel
+  x-displayName: Ride
+  description: |
+    <SchemaDefinition schemaRef="#/components/schemas/Ride" />
+
 x-tagGroups:
   - name: API
     tags:
       - Ride
+  - name: Models
+    tags:
+      - RideModel
   - name: Utils
     tags:
       - Health
+
+components:
+  schemas:
+    Ride:
+      $ref: './rides/schema.yaml#/components/schemas/RideResponse'

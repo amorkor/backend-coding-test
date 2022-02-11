@@ -60,6 +60,20 @@ DocumentationRouter.get('/rides/schema.yaml', (req, res) => {
     }
 });
 
+DocumentationRouter.get('/utils.yaml', (req, res) => {
+    try {
+        res.sendFile('utils.yaml', { root: './docs' });
+    } catch (error) {
+        logger.error(error);
+
+        res.status(500).json({
+            statusCode: 500,
+            statusMessage: 'InternalServiceError',
+            message: 'Something went wrong',
+        });
+    }
+});
+
 DocumentationRouter.get(
     '/',
     redoc({
