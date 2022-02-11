@@ -34,6 +34,8 @@ const startApp = async () => {
 
         logger.info(`App started and listening on port ${PORT}`);
     });
+
+    return { app, database };
 };
 
 module.exports = startApp;

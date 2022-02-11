@@ -21,8 +21,13 @@ const testData = {
     },
 
     validationError: {
-        error_code: 'VALIDATION_ERROR',
+        statusCode: 'VALIDATION_ERR',
         message: 'Rider name must be a non empty string',
+    },
+
+    notFoundError: {
+        statusCode: 'RIDES_NOT_FOUND_ERROR',
+        message: 'Could not found rides',
     },
 };
 
