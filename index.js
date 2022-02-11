@@ -11,6 +11,7 @@ const { connect } = require('./src/database');
 const logger = require('./src/util/logger');
 
 const buildSchemas = require('./src/database/schemas');
+const RideRouter = require('./src/routes/RideRouter');
 
 (async () => {
     const db = await connect(':memory:');
@@ -19,6 +20,12 @@ const buildSchemas = require('./src/database/schemas');
     await buildSchemas(db);
 
     const app = require('./src/app')(dbWithCallback);
+    const rideRouter = RideRouter(db);
+    app.use(
+        '/rides',
+        jsonParser,
+        rideRouter
+    );
 
     app.listen(port, (err) => {
         if (err) {

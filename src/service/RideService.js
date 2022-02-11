@@ -1,8 +1,8 @@
-const RideModel = require('../models/RideModel');
-const database = require('../database');
-const logger = require('../util/logger');
+const RideModel = require('../models/Ride');
 
-const RideService = (rideModel, logger) => {
+const RideService = (database, logger) => {
+    const rideModel = RideModel(database, logger);
+
     return {
         async create(ride) {
             try {
@@ -114,5 +114,5 @@ const RideService = (rideModel, logger) => {
     };
 };
 
-module.exports = RideService(RideModel(database, logger), logger);
+module.exports = RideService;
 
