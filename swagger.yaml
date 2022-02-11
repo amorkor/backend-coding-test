@@ -33,13 +33,28 @@ paths:
       responses: 
         '200':
           description:
-            Server recieved query
+            Ride was successfully created
           content:
             application/json:
               schema:
                 oneOf:
                   - $ref: '#/components/schemas/RideResponse' 
+        '422':
+          description:
+            Recieved ride is invalid
+          content:
+            application/json:
+              schema:
+                oneOf:
                   - $ref: '#/components/schemas/RideValidationError' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RideServerError' 
     get:
       tags:
         - Ride
@@ -86,6 +101,22 @@ paths:
                         - $ref: '#/components/schemas/RideResponse'
                     description:
                       rides listed on page
+        '404':
+          description:
+            No rides found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RidesNotFound' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RideServerError' 
 
   rides/{id}:
     get:
@@ -102,11 +133,23 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/RideResponse'
+        '404':
+          description:
+            No rides found
+          content:
+            application/json:
+              schema:
                 oneOf:
-                  # TODO: specify, that Ride object is returned inside array,
-                  # rather then as plain object
-                  - $ref: '#/components/schemas/RideResponse'
-                  - $ref: '#/components/schemas/RideServerError'
+                  - $ref: '#/components/schemas/RidesNotFound' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/RideServerError' 
 
 components: 
   schemas:
@@ -197,6 +240,14 @@ components:
         message:
           type: string
           example: 'Unknown error'
+    RidesNotFound:
+      properties:
+        errorCode:
+          type: string
+          example: 'RIDES_NOT_FOUND_ERROR'
+        message:
+          type: string
+          example: 'Could not find any rides'
         
 
 x-tagGroups:
