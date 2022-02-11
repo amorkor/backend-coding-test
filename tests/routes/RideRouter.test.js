@@ -2,6 +2,7 @@
 
 const { assert } = require('chai');
 const request = require('supertest');
+const buildSchemas = require('../../src/database/schemas');
 
 const {
     ride,
@@ -12,8 +13,12 @@ const {
 
 module.exports = (app, database) => {
     describe('API', () => {
+        before(async () => {
+            await buildSchemas(database);
+        });
+
         after(async () => {
-            await database.run('DELETE FROM Rides');
+            await database.run('DROP TABLE IF EXISTS Rides');
         });
 
         describe('GET /health', () => {

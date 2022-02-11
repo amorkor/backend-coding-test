@@ -16,7 +16,7 @@ const Ride = (database, logger) => {
 
             try {
                 const result = await database.run(query, insertValues);
-                const [ newRide ] = await this.get(result.lastID);
+                const newRide = await this.get(result.lastID);
 
                 return newRide;
             } catch (err) {
@@ -35,7 +35,7 @@ const Ride = (database, logger) => {
             try {
                 const ride = await database.all(query, id);
 
-                return ride;
+                return ride[0];
             } catch (err) {
                 logger.error({
                     message: err.message,

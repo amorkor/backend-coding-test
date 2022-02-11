@@ -27,7 +27,7 @@ const RideService = (database, logger) => {
 
         async get(id) {
             try {
-                const [ ride ] = await rideModel.get(id);
+                const ride = await rideModel.get(id);
 
                 return ride;
             } catch (err) {

@@ -9,6 +9,16 @@ const testData = {
         driver_vehicle: 'Nebuchadnezzar',
     },
 
+    rideValidated: {
+        startLat: 70,
+        startLong: 100,
+        endLat: -80,
+        endLong: -20,
+        riderName: 'Neo',
+        driverName: 'Morpheus',
+        driverVehicle: 'Nebuchadnezzar',
+    },
+
     rideResponse: {
         rideID: 1,
         start_lat: 70,
