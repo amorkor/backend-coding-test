@@ -1,0 +1,135 @@
+paths:
+  /rides:
+    post:
+      tags:
+        - Ride
+      summary:
+        Create new ride
+      description:
+        Saves new drive to the database.
+        Returns either newly created ride or validation error.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './rides/schema.yaml#/components/schemas/RideRequest'
+      responses: 
+        '200':
+          description:
+            Ride was successfully created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/RideResponse' 
+        '422':
+          description:
+            Recieved ride is invalid
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/ValidationError' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/ServerError' 
+    get:
+      tags:
+        - Ride
+      summary:
+        Get all rides
+      description:
+        Returns requested page given the limit.
+        In case of invalid limit returns page with all rides.
+        In case of page parameter being less than 1 returns first page.
+        If page parameter exceeds total amount of pages, returns last page.
+      parameters:
+        - in: path
+          name: limit
+          schema:
+            type: integer
+          description: amount of rides per page
+        - in: path
+          name: page
+          schema:
+            type: integer
+          description: number of page to query
+      responses:
+        '200':
+          description:
+            Server recieved query
+          content:
+            application/json:
+              schema:
+                properties:
+                  pagesTotal:
+                    type: integer
+                    example: 2
+                    description:
+                      amount of all pages resulted from given limit
+                  currentPage:
+                    type: integer
+                    example: 1
+                    description:
+                      current page
+                  pagedRows:
+                    type: array
+                    items:
+                      - allOf:
+                        - $ref: './rides/schema.yaml#/components/schemas/RideResponse'
+                    description:
+                      rides listed on page
+        '404':
+          description:
+            No rides found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/NotFound' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/ServerError' 
+
+  /rides/{id}:
+    get:
+      tags:
+        - Ride
+      summary:
+        Get ride with id
+      description:
+        Ride with requested id
+      responses:
+        '200':
+          description:
+            Server recieved query.
+          content:
+            application/json:
+              schema:
+                $ref: './rides/schema.yaml#/components/schemas/RideResponse'
+        '404':
+          description:
+            No rides found
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/NotFound' 
+        '500':
+          description:
+            Unknown server error occurred
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: './rides/schema.yaml#/components/schemas/ServerError' 

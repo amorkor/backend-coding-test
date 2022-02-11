@@ -1,0 +1,101 @@
+components:
+  schemas:
+    RideRequest:
+      properties:
+        start_latitude:
+          type: integer
+          example: 70
+          description: range from -90 to 90
+        start_longitude:
+          type: integer
+          example: 100
+          description: range from -180 to 180
+        end_latitude:
+          type: integer
+          example: -80
+          description: range from -90 to 90
+        end_longitude:
+          type: integer
+          example: -20
+          description: range from -180 to 180
+        rider_name:
+          type: string
+          example: Neo
+        driver_name:
+          type: string
+          example: Morpheus
+        driver_vehicle:
+          type: string
+          example: Nebuchadnezzar
+      required:
+        - rider_name
+        - driver_name
+        - driver_vehicle
+        - end_longitude
+        - start_latitude
+        - start_longitude
+        - end_latitude
+
+    RideResponse:
+      properties:
+        rideID:
+          type: integer
+          readOnly: true
+          example: 1
+        startLatitude:
+          type: integer
+          example: 70
+          description: range from -90 to 90
+        startLongitude:
+          type: integer
+          example: 100
+          description: range from -180 to 180
+        endLatitude:
+          type: integer
+          example: -80
+          description: range from -90 to 90
+        endLongitude:
+          type: integer
+          example: -20
+          description: range from -180 to 180
+        riderName:
+          type: string
+          example: Neo
+        driverName:
+          type: string
+          example: Morpheus
+        driverVehicle:
+          type: string
+          example: Nebuchadnezzar
+        created:
+          readOnly: true
+          type: string
+          format: date
+          example: '2022-02-08 10:50:06'
+
+    NotFound:
+      properties:
+        statusCode:
+          type: string
+          example: 'RIDES_NOT_FOUND_ERROR'
+        message:
+          type: string
+          example: 'Could not find any rides'
+
+    ValidationError:
+      properties:
+        statusCode:
+          type: string
+          example: 'VALIDATION_ERROR'
+        message:
+          type: string
+          example: 'Rider name must be a non empty string'
+
+    ServerError:
+      properties:
+        statusCode:
+          type: string
+          example: 'SERVER_ERROR'
+        message:
+          type: string
+          example: 'Unknown error'

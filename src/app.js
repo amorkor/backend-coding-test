@@ -3,8 +3,7 @@
 const express = require('express');
 const app = express();
 const RideRouter = require('./routes/RideRouter');
-
-const redoc = require('redoc-express');
+const DocumentationRouter = require('./routes/DocumentationRouter');
 
 const { connect } = require('./database');
 const buildSchemas = require('./database/schemas');
@@ -22,16 +21,7 @@ const startApp = async () => {
 
     app.use('/rides', rideRouter);
     app.get('/health', (req, res) => res.send('Healthy'));
-    app.get(
-        '/docs',
-        redoc({
-            title: 'API Docs',
-            specUrl: '/docs/swagger.yaml',
-        })
-    );
-    app.get('/docs/swagger.yaml', (req, res) => {
-        res.sendFile('swagger.yaml', { root: '.' });
-    });
+    app.use('/docs', DocumentationRouter);
 
     app.listen(PORT, (err) => {
         if (err) {
