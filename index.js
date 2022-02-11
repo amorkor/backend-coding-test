@@ -20,7 +20,7 @@ const RideRouter = require('./src/routes/RideRouter');
     await buildSchemas(db);
 
     const app = require('./src/app')(dbWithCallback);
-    const rideRouter = RideRouter(db);
+    const rideRouter = RideRouter(db, logger);
     app.use(
         '/rides',
         jsonParser,

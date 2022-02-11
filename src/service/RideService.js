@@ -40,6 +40,61 @@ const RideService = (database, logger) => {
             }
         },
 
+        async getPage(limit, page) {
+            const packResponse = async (
+                limit,
+                offset,
+                ridesTotal
+            ) => {
+                const pagedRows = await rideModel.getPage(limit, offset);
+                const pagesTotal = limit < 1 ? 1 : Math.ceil(ridesTotal / limit);
+                const currentPage = limit < 1 ? 1 : Math.floor((offset / limit) + 1);
+
+                return {
+                    pagesTotal,
+                    currentPage,
+                    pagedRows,
+                };
+            };
+
+            try {
+                const ridesTotal = await rideModel.countAll();
+
+                if (ridesTotal === 0) {
+                    throw {
+                        code: 'RIDES_NOT_FOUND_ERROR',
+                        message: 'Could not find any rides',
+                    };
+                }
+
+                if (isNaN(limit) || limit < 1) {
+                    return packResponse(-1, 0, ridesTotal);
+                }
+
+                if (isNaN(page) || page < 1) {
+                    return packResponse(limit, 0, ridesTotal);
+                }
+
+                /*
+                 * Hold offset value in acceptable range
+                 * If equal to or exceed upper bound (total amount of rides),
+                 * a value which corresponds to the last page is assigned
+                 */
+                const offset = limit * (page - 1) >= ridesTotal ?
+                    limit * (Math.ceil(ridesTotal / limit) - 1) :
+                    limit * (page - 1);
+
+                return packResponse(limit, offset, ridesTotal);
+            } catch (err) {
+                logger.error({
+                    message: err.message,
+                    code: err.code,
+                });
+
+                throw err;
+            }
+        },
+
         validate(ride) {
             const details = {};
 

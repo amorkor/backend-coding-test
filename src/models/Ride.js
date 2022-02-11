@@ -45,6 +45,41 @@ const Ride = (database, logger) => {
                 throw err;
             }
         },
+
+        async getPage(limit, offset) {
+            const query = 'SELECT * FROM Rides LIMIT ? OFFSET ?';
+
+            try {
+                const pagedRows = await database.all(query, [ limit, offset ]);
+
+                return pagedRows;
+            } catch (err) {
+                logger.error({
+                    message: err.message,
+                    code: err.code,
+                });
+
+                throw err;
+            }
+        },
+
+        async countAll() {
+            const query = 'SELECT COUNT(*) AS total FROM Rides';
+
+            try {
+                const [ rowsCount ]  = await database.all(query);
+                const ridesTotal = rowsCount.total;
+
+                return ridesTotal;
+            } catch (err) {
+                logger.error({
+                    message: err.message,
+                    code: err.code,
+                });
+
+                throw err;
+            }
+        },
     };
 };
 
