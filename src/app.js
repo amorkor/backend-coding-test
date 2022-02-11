@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 const RideRouter = require('./routes/RideRouter');
 const DocumentationRouter = require('./routes/DocumentationRouter');
+const UtilsRouter = require('./routes/UtilsRouter');
 
 const { connect } = require('./database');
 const buildSchemas = require('./database/schemas');
@@ -20,7 +21,7 @@ const startApp = async () => {
     app.use(express.json());
 
     app.use('/rides', rideRouter);
-    app.get('/health', (req, res) => res.send('Healthy'));
+    app.use('/health', UtilsRouter);
     app.use('/docs', DocumentationRouter);
 
     app.listen(PORT, (err) => {
