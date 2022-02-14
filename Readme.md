@@ -46,38 +46,18 @@ GET /rides endpoint support error-resilient pagination.
 
 ### Refactoring
 
-Please implement the following refactors of the code:
+The app is refactored and follows modern best practices.
 
-1. Convert callback style code to use `async/await`
-2. Reduce complexity at top level control flow logic and move logic down and test independently
-3. **[BONUS]** Split between functional and imperative function and test independently
+Key changes:
 
-#### Success Criteria
-
-1. A pull request against `master` of your fork for each of the refactors above with:
-    1. Code changes
-    2. Tests
+- Migrate from callbacks to Promises and async/await. Provide convenient error monitoring with try/catch.
+- Move logic in API to separate tiers: models and services. Leave thin controller. Split express app to routers.
+- Introduce unit testing and deeper integration testing.
 
 ### Security
 
-Please implement the following security controls for your system:
-
-1. Ensure the system is not vulnerable to [SQL injection](https://www.owasp.org/index.php/SQL_Injection)
-2. **[BONUS]** Implement an additional security improvement of your choice
-
-#### Success Criteria
-
-1. A pull request against `master` of your fork with:
-    1. Changes to the code
-    2. Tests ensuring the vulnerability is addressed
+System is provided with security integrations and tests to make it safe against common web vulnerabilities, including SQL injection.
 
 ### Load Testing
 
-Please implement load testing to ensure your service can handle a high amount of traffic
-
-#### Success Criteria
-
-1. Implement load testing using `artillery`
-    1. Create a PR against `master` of your fork including artillery
-    2. Ensure that load testing is able to be run using `npm test:load`. You can consider using a tool like `forever` to spin up a daemon and kill it after the load test has completed.
-    3. Test all endpoints under at least `100 rps` for `30s` and ensure that `p99` is under `50ms`
+Also, the app is tested with artillery to ensure ability to handle high loads.
