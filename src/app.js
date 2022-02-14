@@ -2,12 +2,12 @@
 
 const express = require('express');
 const app = express();
+
 const RideRouter = require('./routes/RideRouter');
 const DocumentationRouter = require('./routes/DocumentationRouter');
 const UtilsRouter = require('./routes/UtilsRouter');
 
 const { connect } = require('./database');
-const buildSchemas = require('./database/schemas');
 const logger = require('./util/logger');
 
 const PORT = 8010;
@@ -15,8 +15,6 @@ const PORT = 8010;
 const startApp = async () => {
     const database = await connect(':memory:');
     const rideRouter = RideRouter(database, logger);
-
-    await buildSchemas(database);
 
     app.use(express.json());
 
