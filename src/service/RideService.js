@@ -41,22 +41,6 @@ const RideService = (database, logger) => {
         },
 
         async getPage(limit, page) {
-            const packResponse = async (
-                limit,
-                offset,
-                ridesTotal
-            ) => {
-                const pagedRows = await rideModel.getPage(limit, offset);
-                const pagesTotal = limit < 1 ? 1 : Math.ceil(ridesTotal / limit);
-                const currentPage = limit < 1 ? 1 : Math.floor((offset / limit) + 1);
-
-                return {
-                    pagesTotal,
-                    currentPage,
-                    pagedRows,
-                };
-            };
-
             try {
                 const ridesTotal = await rideModel.countAll();
 
@@ -67,24 +51,21 @@ const RideService = (database, logger) => {
                     };
                 }
 
-                if (isNaN(limit) || limit < 1) {
-                    return packResponse(-1, 0, ridesTotal);
-                }
+                limit = (isNaN(limit) || limit < 1 || limit > ridesTotal) ?
+                    ridesTotal :
+                    limit;
+                const pagesTotal = Math.ceil(ridesTotal / limit);
+                page = isNaN(page) ? 1 : page;
+                page = Math.min(pagesTotal, Math.max(page, 1));
+                const offset = limit * (page - 1);
 
-                if (isNaN(page) || page < 1) {
-                    return packResponse(limit, 0, ridesTotal);
-                }
+                const pagedRows = await rideModel.getPage(limit, offset);
 
-                /*
-                 * Hold offset value in acceptable range
-                 * If equal to or exceed upper bound (total amount of rides),
-                 * a value which corresponds to the last page is assigned
-                 */
-                const offset = limit * (page - 1) >= ridesTotal ?
-                    limit * (Math.ceil(ridesTotal / limit) - 1) :
-                    limit * (page - 1);
-
-                return packResponse(limit, offset, ridesTotal);
+                return {
+                    pagesTotal,
+                    currentPage: page,
+                    pagedRows,
+                };
             } catch (err) {
                 logger.error({
                     message: err.message,
