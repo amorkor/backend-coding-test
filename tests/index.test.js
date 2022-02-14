@@ -1,6 +1,7 @@
 const rideModelTest = require('./models/Ride.test');
 const rideRouterTest = require('./routes/RideRouter.test');
 const rideServiceTest = require('./service/RideService.test');
+const documentRouterTest = require('./routes/DocumentRouter.test');
 
 const { connect } = require('../src/database');
 const initModels= require('../src/models');
@@ -17,6 +18,7 @@ const startApp = require('../src/app');
     rideModelTest(rideModel, database);
     rideServiceTest(rideService, database);
     rideRouterTest(app, database);
+    documentRouterTest(app);
 
     run();
 })();
