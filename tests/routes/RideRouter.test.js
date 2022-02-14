@@ -129,6 +129,27 @@ module.exports = (app, database) => {
                         done();
                     });
             });
+
+            it('should return 404 & not found error object (sql injection)', (done) => {
+                request(app)
+                    .get('/rides/1; DROP TABLE  Rides; --')
+                    .expect('content-type', /json/)
+                    .expect(404)
+                    .end((err, res) => {
+                        assert.typeOf(
+                            res.body,
+                            'object',
+                            'recieved object',
+                        );
+                        assert.equal(
+                            res.body.statusCode,
+                            notFoundError.statusCode,
+                            'recieved not found error',
+                        );
+
+                        done();
+                    });
+            });
         });
 
         describe('GET /rides', async () => {
