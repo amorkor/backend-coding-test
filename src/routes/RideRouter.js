@@ -1,10 +1,7 @@
-const RideService = require('../service/RideService');
 const logger = require('../util/logger');
 const router = require('express').Router();
 
-const RideRouter = (database) => {
-    const rideService = RideService(database, logger);
-
+const RideRouter = (rideService) => {
     router.post('/', async (req, res) => {
         const ride = {
             startLat: Number(req.body.start_lat),

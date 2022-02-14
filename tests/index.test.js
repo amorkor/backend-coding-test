@@ -2,13 +2,20 @@ const rideModelTest = require('./models/Ride.test');
 const rideRouterTest = require('./routes/RideRouter.test');
 const rideServiceTest = require('./service/RideService.test');
 
+const { connect } = require('../src/database');
+const initModels= require('../src/models');
+const initServices = require('../src/service');
 const startApp = require('../src/app');
 
 (async () => {
-    const { app, database } = await startApp();
+    const database = await connect(':memory:');
+    const app = await startApp();
 
-    rideModelTest(database);
-    rideServiceTest(database);
+    const { rideModel } = await initModels();
+    const { rideService } = await initServices();
+
+    rideModelTest(rideModel, database);
+    rideServiceTest(rideService, database);
     rideRouterTest(app, database);
 
     run();

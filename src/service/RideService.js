@@ -1,8 +1,4 @@
-const RideModel = require('../models/Ride');
-
-const RideService = (database, logger) => {
-    const rideModel = RideModel(database, logger);
-
+const RideService = (rideModel, logger) => {
     return {
         async create(ride) {
             try {

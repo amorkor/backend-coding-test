@@ -1,12 +1,8 @@
 const { assert } = require('chai');
 const { rideValidated, rideResponse } = require('../data.js');
-const logger = require('../../src/util/logger');
-const RideModel = require('../../src/models/Ride');
 const buildSchemas = require('../../src/database/schemas');
 
-module.exports = (database) => {
-    const rideModel = RideModel(database, logger);
-
+module.exports = (rideModel, database) => {
     describe('RideModel', () => {
         before(async () => {
             await buildSchemas(database);

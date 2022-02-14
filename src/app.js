@@ -7,14 +7,15 @@ const RideRouter = require('./routes/RideRouter');
 const DocumentationRouter = require('./routes/DocumentationRouter');
 const UtilsRouter = require('./routes/UtilsRouter');
 
-const { connect } = require('./database');
+const initServices = require('./service');
 const logger = require('./util/logger');
 
 const PORT = 8010;
 
 const startApp = async () => {
-    const database = await connect(':memory:');
-    const rideRouter = RideRouter(database, logger);
+    const { rideService } = await initServices();
+
+    const rideRouter = RideRouter(rideService);
 
     app.use(express.json());
 
@@ -33,7 +34,7 @@ const startApp = async () => {
         logger.info(`App started and listening on port ${PORT}`);
     });
 
-    return { app, database };
+    return app;
 };
 
 module.exports = startApp;

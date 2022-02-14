@@ -1,6 +1,4 @@
 const { assert } = require('chai');
-const logger = require('../../src/util/logger');
-const RideService = require('../../src/service/RideService');
 const buildSchemas = require('../../src/database/schemas');
 const {
     rideValidated,
@@ -8,9 +6,7 @@ const {
     validationError,
 } = require('../data.js');
 
-module.exports = (database) => {
-    const rideService = RideService(database, logger);
-
+module.exports = (rideService, database) => {
     describe('RideService', () => {
         before(async () => {
             await buildSchemas(database);
@@ -23,8 +19,6 @@ module.exports = (database) => {
         describe('#validate', () => {
             it('should pass correct ride', async () => {
                 const err = await rideService.validate(rideValidated);
-                console.log(rideValidated);
-                console.log(err);
                 assert.isNotOk(err, 'returns null');
             });
 
