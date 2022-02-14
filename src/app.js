@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express();
+const helmet = require('helmet');
 
 const RideRouter = require('./routes/RideRouter');
 const DocumentationRouter = require('./routes/DocumentationRouter');
@@ -20,6 +21,7 @@ const startApp = async () => {
     const rideRouter = RideRouter(rideService);
 
     app.use(express.json());
+    app.use(helmet());
 
     app.use('/rides', rideRouter);
     app.use('/health', UtilsRouter);
