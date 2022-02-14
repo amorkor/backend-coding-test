@@ -5,8 +5,7 @@ The goal of these exercises are to show proficiency in software engineering that
 ## Setup
 
 1. Clone this repository with `git clone https://github.com/amorkor/backend-coding-test.git`
-2. Ensure `node (>8.6 and <= 10)` and `npm` are installed
-3. While in project root, run `nvm use`
+2. Ensure `node (>8.6 and <= 10)` and `npm` are installed and set as current
 4. Run `npm install`
 5. Run `npm test`
 6. Run `npm start`
