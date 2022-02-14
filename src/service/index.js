@@ -3,8 +3,8 @@ const logger = require('../util/logger');
 
 const RideService = require('./RideService');
 
-module.exports = async () => {
-    const { rideModel } = await initModels();
+module.exports = async (database) => {
+    const { rideModel } = await initModels(database);
 
     const rideService = RideService(rideModel, logger);
 

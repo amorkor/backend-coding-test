@@ -9,11 +9,13 @@ const UtilsRouter = require('./routes/UtilsRouter');
 
 const initServices = require('./service');
 const logger = require('./util/logger');
+const { connect } = require('./database');
 
 const PORT = 8010;
 
 const startApp = async () => {
-    const { rideService } = await initServices();
+    const database = await connect(':memory:');
+    const { rideService } = await initServices(database);
 
     const rideRouter = RideRouter(rideService);
 

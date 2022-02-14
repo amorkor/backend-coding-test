@@ -12,8 +12,8 @@ const startApp = require('../src/app');
     const database = await connect(':memory:');
     const app = await startApp();
 
-    const { rideModel } = await initModels();
-    const { rideService } = await initServices();
+    const { rideModel } = await initModels(database);
+    const { rideService } = await initServices(database);
 
     rideModelTest(rideModel, database);
     rideServiceTest(rideService, database);
