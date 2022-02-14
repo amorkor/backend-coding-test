@@ -1,7 +1,7 @@
 {
   "name": "backend-coding-test",
   "version": "1.0.0",
-  "description": "A coding assessment for Xendit backend interviews",
+  "description": "A coding assessment for backend interviews",
   "main": "index.js",
   "directories": {
     "test": "tests"
@@ -20,9 +20,6 @@
   "pre-push": [
     "lint",
     "coverage"
-  ],
-  "keywords": [
-    "Xendit"
   ],
   "author": "Bo",
   "license": "ISC",
