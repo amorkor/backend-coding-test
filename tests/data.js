@@ -9,6 +9,16 @@ const testData = {
         driver_vehicle: 'Nebuchadnezzar',
     },
 
+    rideValidated: {
+        startLat: 70,
+        startLong: 100,
+        endLat: -80,
+        endLong: -20,
+        riderName: 'Neo',
+        driverName: 'Morpheus',
+        driverVehicle: 'Nebuchadnezzar',
+    },
+
     rideResponse: {
         rideID: 1,
         start_lat: 70,
@@ -21,8 +31,13 @@ const testData = {
     },
 
     validationError: {
-        error_code: 'VALIDATION_ERROR',
+        statusCode: 'VALIDATION_ERR',
         message: 'Rider name must be a non empty string',
+    },
+
+    notFoundError: {
+        statusCode: 'RIDES_NOT_FOUND_ERROR',
+        message: 'Could not found rides',
     },
 };
 

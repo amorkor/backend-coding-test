@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "mocha tests",
+    "test": "mocha --delay --exit tests",
     "start": "node index.js",
     "dev": "npx nodemon index.js",
     "coverage": "npx nyc npm run test",
