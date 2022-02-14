@@ -15,7 +15,7 @@
     "dev": "npx nodemon index.js",
     "coverage": "npx nyc npm run test",
     "lint": "npx eslint . --ext js",
-    "load": "artillery quick -r 100 -d 30 http://localhost:8010/health && forever stop 0"
+    "load": "artillery run tests/load/config.yaml && forever stopall"
   },
   "pre-push": [
     "lint",

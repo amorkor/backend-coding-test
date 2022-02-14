@@ -1,0 +1,30 @@
+config:
+  target: "http://localhost:8010"
+  engine: 'http'
+  phases:
+    - arrivalRate: 100
+      duration: 30
+  ensure:
+    p99: 50
+scenarios:
+  - name: GET /health
+    flow:
+      - get: '/health'
+  - name: POST /rides
+    flow:
+      - post:
+          url: '/rides'
+          json:
+            start_lat: 70
+            start_long: 100
+            end_lat: -80
+            end_long: -20
+            rider_name: 'Neo'
+            driver_name: 'Morpheus'
+            driver_vehicle: 'Nebuchadnezzar'
+  - name: GET /rides
+    flow:
+      - get: '/rides'
+  - name: GET /rides/{id}
+    flow:
+      - get: '/rides/1'
