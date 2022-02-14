@@ -1,6 +1,6 @@
-# Xendit Coding Exercise
+# Coding Exercise
 
-The goal of these exercises are to show proficiency in software engineering that is related to the daily work at Xendit. All instructions and guidelines are listed below.
+The goal of these exercises are to show proficiency in software engineering. All instructions and guidelines are listed below.
 
 ## Setup
 
